@@ -2,6 +2,8 @@
 
 static GtkWidget *input;
 static GtkWidget *output;
+static GtkApplication *app_global;
+
 
 static void process_img(GtkWidget *widget, gpointer user_data) {
 	char *filename = gtk_file_chooser_get_filename(GTK_FILE_CHOOSER(input));
@@ -27,8 +29,8 @@ static void process_img(GtkWidget *widget, gpointer user_data) {
 };
 
 static void killapp(GtkWidget *widget, gpointer user_data) {
-    gtk_main_quit(); 
-};
+    g_application_quit(G_APPLICATION(app_global));
+}
 
 static void activate(GtkApplication *app, gpointer user_data) {
 	GtkBuilder *builder;
@@ -59,10 +61,6 @@ static void activate(GtkApplication *app, gpointer user_data) {
 	g_signal_connect(input, "file-set", G_CALLBACK(process_img), input);	
 	g_signal_connect(close, "clicked", G_CALLBACK(killapp), NULL);
 
-
-
-
-
 };
 
 int main(int argc, char **argv) {
@@ -70,6 +68,7 @@ int main(int argc, char **argv) {
 	int status;
 
 	app = gtk_application_new("org.ocr.com", G_APPLICATION_DEFAULT_FLAGS);
+	app_global = app;
 	g_signal_connect(app,"activate",G_CALLBACK(activate), NULL);
 	status = g_application_run(G_APPLICATION(app), argc, argv);
 	g_object_unref(app);
