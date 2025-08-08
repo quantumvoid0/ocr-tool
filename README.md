@@ -28,3 +28,7 @@ git clone https://github.com/quantumvoid0/ocr-tool
 cd ocr-tool
 sudo make uninstall
 ```
+
+## Usage
+
+either open from your app menu or via CLI run `ocr`
