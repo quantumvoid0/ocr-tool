@@ -34,12 +34,12 @@ static void activate(GtkApplication *app, gpointer user_data) {
 	GtkBuilder *builder;
 	GtkWidget *window, *close;
 
-	builder = gtk_builder_new_from_file("ui.glade");
+	builder = gtk_builder_new_from_file("/usr/share/ocr-tool/ui.glade");
 	window = GTK_WIDGET(gtk_builder_get_object(builder, "main_window"));
 
 
 	GtkCssProvider *provider = gtk_css_provider_new();
-	gtk_css_provider_load_from_path(provider, "style.css", NULL);
+	gtk_css_provider_load_from_path(provider, "/usr/share/ocr-tool/style.css", NULL);
 	gtk_style_context_add_provider_for_screen(
 	    gdk_screen_get_default(),
 	    GTK_STYLE_PROVIDER(provider),
